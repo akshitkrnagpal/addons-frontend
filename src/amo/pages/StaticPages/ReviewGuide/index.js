@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import { getCanonicalURL } from 'amo/utils';
+import HrefLang from 'amo/components/HrefLang';
 import Card from 'ui/components/Card';
 import translate from 'core/i18n/translate';
 import { sanitizeHTML } from 'core/utils';
@@ -43,6 +44,8 @@ export class ReviewGuideBase extends React.Component<Props> {
               downloaded and used on Firefox.`)}
           />
         </Helmet>
+
+        <HrefLang to="/review_guide" prependClientApp={false} />
 
         <div className="StaticPageWrapper">
           <section id="review-guide">

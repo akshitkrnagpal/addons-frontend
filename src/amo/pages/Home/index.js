@@ -10,6 +10,7 @@ import CategoryIcon from 'amo/components/CategoryIcon';
 import FeaturedCollectionCard from 'amo/components/FeaturedCollectionCard';
 import HomeHeroBanner from 'amo/components/HomeHeroBanner';
 import HomeHeroGuides from 'amo/components/HomeHeroGuides';
+import HrefLang from 'amo/components/HrefLang';
 import LandingAddonsCard from 'amo/components/LandingAddonsCard';
 import Link from 'amo/components/Link';
 import { fetchHomeAddons } from 'amo/reducers/home';
@@ -236,6 +237,8 @@ export class HomeBase extends React.Component {
               protect passwords, change browser appearance, and more.`)}
           />
         </Helmet>
+
+        <HrefLang to="/" />
 
         <span
           className="visually-hidden do-not-remove"

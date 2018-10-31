@@ -11,6 +11,7 @@ import { getLanding } from 'amo/actions/landing';
 import { setViewContext } from 'amo/actions/viewContext';
 import LandingAddonsCard from 'amo/components/LandingAddonsCard';
 import Categories from 'amo/components/Categories';
+import HrefLang from 'amo/components/HrefLang';
 import { getCanonicalURL } from 'amo/utils';
 import {
   ADDON_TYPE_EXTENSION,
@@ -253,6 +254,8 @@ export class LandingPageBase extends React.Component {
           />
           <meta name="description" content={this.getPageDescription()} />
         </Helmet>
+
+        <HrefLang to={`/${getVisibleAddonType(addonType)}/`} />
 
         {errorHandler.renderErrorIfPresent()}
 

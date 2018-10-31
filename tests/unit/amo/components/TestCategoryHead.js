@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import CategoryHead, { CategoryHeadBase } from 'amo/components/CategoryHead';
+import HrefLang from 'amo/components/HrefLang';
 import { ADDON_TYPE_EXTENSION, ADDON_TYPE_THEME } from 'core/constants';
 import {
   dispatchClientMetadata,
@@ -90,5 +91,18 @@ describe(__filename, () => {
     const root = render({ category });
 
     expect(root.find('meta[name="description"]')).toHaveLength(0);
+  });
+
+  it('renders a HrefLang component', () => {
+    const category = { ...fakeCategory };
+    const visibleAddonType = 'addon-type';
+
+    const root = render({ category, visibleAddonType });
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp(
+      'to',
+      `/${visibleAddonType}/${category.slug}/`,
+    );
   });
 });

@@ -10,6 +10,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import { setViewContext } from 'amo/actions/viewContext';
 import Link from 'amo/components/Link';
+import HrefLang from 'amo/components/HrefLang';
 import { getCanonicalURL } from 'amo/utils';
 import { withErrorHandler } from 'core/errorHandler';
 import {
@@ -174,6 +175,8 @@ export class LanguageToolsBase extends React.Component<Props> {
               spell-checker, or change the browser's interface language.`)}
           />
         </Helmet>
+
+        <HrefLang to="/language-tools/" />
 
         {errorHandler.renderErrorIfPresent()}
 

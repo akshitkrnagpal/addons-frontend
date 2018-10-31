@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import About, { AboutBase } from 'amo/pages/StaticPages/About';
+import HrefLang from 'amo/components/HrefLang';
 import {
   dispatchClientMetadata,
   fakeI18n,
@@ -49,5 +50,13 @@ describe(__filename, () => {
     expect(root.find('meta[name="description"]').prop('content')).toMatch(
       /The official Mozilla site/,
     );
+  });
+
+  it('renders a HrefLang component', () => {
+    const root = render();
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp('to', '/about');
+    expect(root.find(HrefLang)).toHaveProp('prependClientApp', false);
   });
 });

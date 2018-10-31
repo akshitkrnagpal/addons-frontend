@@ -2,10 +2,12 @@ import * as React from 'react';
 
 import SearchTools, { SearchToolsBase } from 'amo/pages/SearchTools';
 import Search from 'amo/components/Search';
+import HrefLang from 'amo/components/HrefLang';
 import { ADDON_TYPE_OPENSEARCH, SEARCH_SORT_RELEVANCE } from 'core/constants';
 import {
   dispatchClientMetadata,
   fakeI18n,
+  getFakeConfig,
   shallowUntilTarget,
 } from 'tests/unit/helpers';
 
@@ -42,6 +44,28 @@ describe(__filename, () => {
     expect(root.find('meta[name="description"]')).toHaveLength(1);
     expect(root.find('meta[name="description"]').prop('content')).toMatch(
       /Download Firefox extensions to customize/,
+    );
+  });
+
+  it('renders a HrefLang component', () => {
+    const root = render();
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp('to', '/search-tools/');
+  });
+
+  it('renders a canonical link tag', () => {
+    const baseURL = 'https://example.org';
+    const _config = getFakeConfig({ baseURL });
+    const pathname = '/language-tools/';
+    const { store: storeWithPathname } = dispatchClientMetadata({ pathname });
+
+    const root = render({ _config, store: storeWithPathname });
+
+    expect(root.find('link[rel="canonical"]')).toHaveLength(1);
+    expect(root.find('link[rel="canonical"]')).toHaveProp(
+      'href',
+      `${baseURL}${pathname}`,
     );
   });
 });

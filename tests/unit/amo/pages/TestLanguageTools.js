@@ -6,6 +6,7 @@ import LanguageTools, {
   LanguageToolList,
 } from 'amo/pages/LanguageTools';
 import Link from 'amo/components/Link';
+import HrefLang from 'amo/components/HrefLang';
 import { ADDON_TYPE_DICT, ADDON_TYPE_LANG } from 'core/constants';
 import {
   getAllLanguageTools,
@@ -328,5 +329,12 @@ describe(__filename, () => {
     expect(root.find('meta[name="description"]').prop('content')).toMatch(
       /Download Firefox dictionaries and language/,
     );
+  });
+
+  it('renders a HrefLang component', () => {
+    const root = renderShallow();
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp('to', '/language-tools/');
   });
 });

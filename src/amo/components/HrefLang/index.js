@@ -10,6 +10,7 @@ import { hrefLangs } from 'core/languages';
 import type { AppState } from 'amo/store';
 
 type Props = {|
+  prependClientApp?: boolean,
   to: string,
 |};
 
@@ -25,28 +26,35 @@ export class HrefLangBase extends React.PureComponent<InternalProps> {
   static defaultProps = {
     _config: config,
     _hrefLangs: hrefLangs,
+    prependClientApp: true,
   };
 
   render() {
-    const { _config, _hrefLangs, clientApp, lang, to } = this.props;
+    const {
+      _config,
+      _hrefLangs,
+      clientApp,
+      lang,
+      prependClientApp,
+      to,
+    } = this.props;
 
     if (_config.get('unsupportedHrefLangs').includes(lang)) {
       return null;
     }
 
     const hrefLangsMap = _config.get('hrefLangsMap');
+    const path = prependClientApp ? `/${clientApp}${to}` : to;
 
     return (
       <Helmet>
         {_hrefLangs.map((hrefLang) => {
           const locale = hrefLangsMap[hrefLang] || hrefLang;
+          const locationPathname = `/${locale}${path}`;
 
           return (
             <link
-              href={getCanonicalURL({
-                _config,
-                locationPathname: `/${locale}/${clientApp}${to}`,
-              })}
+              href={getCanonicalURL({ _config, locationPathname })}
               hrefLang={hrefLang}
               key={hrefLang}
               rel="alternate"

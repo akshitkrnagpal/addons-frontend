@@ -3,6 +3,7 @@ import * as React from 'react';
 import ReviewGuide, {
   ReviewGuideBase,
 } from 'amo/pages/StaticPages/ReviewGuide';
+import HrefLang from 'amo/components/HrefLang';
 import {
   dispatchClientMetadata,
   fakeI18n,
@@ -51,5 +52,13 @@ describe(__filename, () => {
     expect(root.find('meta[name="description"]').prop('content')).toMatch(
       /Guidelines, tips, and/,
     );
+  });
+
+  it('renders a HrefLang component', () => {
+    const root = render();
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp('to', '/review_guide');
+    expect(root.find(HrefLang)).toHaveProp('prependClientApp', false);
   });
 });

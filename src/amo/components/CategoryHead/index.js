@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
+import HrefLang from 'amo/components/HrefLang';
 import { getCanonicalURL } from 'amo/utils';
 import { ADDON_TYPE_EXTENSION, ADDON_TYPE_THEME } from 'core/constants';
 import translate from 'core/i18n/translate';
@@ -15,6 +16,7 @@ import type { I18nType } from 'core/types/i18n';
 
 type Props = {|
   category: CategoryType | null,
+  visibleAddonType: string,
 |};
 
 type InternalProps = {|
@@ -60,21 +62,30 @@ export class CategoryHeadBase extends React.PureComponent<InternalProps> {
   }
 
   render() {
-    const { _config, category, locationPathname } = this.props;
+    const {
+      _config,
+      category,
+      locationPathname,
+      visibleAddonType,
+    } = this.props;
 
     if (!category) {
       return null;
     }
 
     return (
-      <Helmet>
-        <title>{this.getPageTitle()}</title>
-        <link
-          rel="canonical"
-          href={getCanonicalURL({ locationPathname, _config })}
-        />
-        {this.renderMetaDescription()}
-      </Helmet>
+      <React.Fragment>
+        <Helmet>
+          <title>{this.getPageTitle()}</title>
+          <link
+            rel="canonical"
+            href={getCanonicalURL({ locationPathname, _config })}
+          />
+          {this.renderMetaDescription()}
+        </Helmet>
+
+        <HrefLang to={`/${visibleAddonType}/${category.slug}/`} />
+      </React.Fragment>
     );
   }
 }

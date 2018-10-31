@@ -10,6 +10,7 @@ import Home, {
 import FeaturedCollectionCard from 'amo/components/FeaturedCollectionCard';
 import HomeHeroGuides from 'amo/components/HomeHeroGuides';
 import HomeHeroBanner from 'amo/components/HomeHeroBanner';
+import HrefLang from 'amo/components/HrefLang';
 import LandingAddonsCard from 'amo/components/LandingAddonsCard';
 import { fetchHomeAddons, loadHomeAddons } from 'amo/reducers/home';
 import { createInternalCollection } from 'amo/reducers/collections';
@@ -452,5 +453,12 @@ describe(__filename, () => {
     const root = render({ _config });
 
     expect(root.find(HomeHeroGuides)).toHaveLength(1);
+  });
+
+  it('renders a HrefLang component', () => {
+    const root = render();
+
+    expect(root.find(HrefLang)).toHaveLength(1);
+    expect(root.find(HrefLang)).toHaveProp('to', '/');
   });
 });
